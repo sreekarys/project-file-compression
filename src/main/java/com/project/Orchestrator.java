@@ -18,7 +18,8 @@ import com.project.util.InputValidator;
 
 public class Orchestrator {
 
-	private static final ExecutorService EXECUTOR = Executors.newFixedThreadPool(Integer.parseInt(System.getProperty("thread.pool.size")));
+	private static final ExecutorService EXECUTOR = Executors
+			.newFixedThreadPool(Integer.parseInt(System.getProperty("thread.pool.size")));
 	private static final Decompressor FILE_DECOMPRESSOR = new FileDecompressionServiceImpl();
 	private static final Decompressor DIRECTORY_DECOMPRESSOR = new DirectoryDecompressionServiceImpl();
 	private static final InputValidator VALIDATOR = new InputValidator();
@@ -43,14 +44,17 @@ public class Orchestrator {
 	private void wait(CountDownLatch latch) {
 		try {
 			latch.await();
-			EXECUTOR.shutdown();
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 	}
 
 	private void validate(String input, String output) throws InvalidRequestException {
 		VALIDATOR.validateInput(input);
 		VALIDATOR.validateOutput(output);
+	}
+
+	public static ExecutorService getExecuctor() {
+		return EXECUTOR;
 	}
 }

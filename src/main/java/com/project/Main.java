@@ -43,6 +43,7 @@ public class Main {
 			default:
 				System.out.println("Program terminated!!!");
 				in.close();
+				Orchestrator.getExecuctor().shutdown();
 				return;
 			}
 		}
